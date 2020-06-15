@@ -6,6 +6,7 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { capitalizeFirstLetter } from "../../common/capitalizeFirstLetter";
 
 const useStyles = makeStyles((theme) => ({
   nested: {
@@ -57,7 +58,7 @@ export default function NestedList(props) {
       <ListItem 
         className={listItemStyle}
         button onClick={(e)=>handleClick(e)}>
-        <ListItemText primary={props.name} />
+        <ListItemText primary={capitalizeFirstLetter(props.name)} />
         {open ? <ChevronLeft /> : <ChevronRight />}
       </ListItem>
       </div>

@@ -12,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import "./Pokemon.css";
 import classNames from "classnames";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { capitalizeFirstLetter } from "../../common/capitalizeFirstLetter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +47,7 @@ function Pokemon(props) {
   const classes = useStyles();
     const [showLoader, setShowLoader] = useState(true);
     const [expandedText, setExpandedText] = useState(true);
+    const [abilities, setAbilities] = useState(true);
     
     useEffect(() => {
         const {dispatch} = props;
@@ -71,6 +73,27 @@ function Pokemon(props) {
       }else{
         const forms = pokemon_data.data && pokemon_data.data.species.url;
         forms && dispatch(getPokemonFormInfo(forms));
+        
+        if(pokemon_data && pokemon_data.data && pokemon_data.data){
+          let text = "", moves="";
+          const data = pokemon_data && pokemon_data.data && pokemon_data.data;
+          
+          data.abilities.map((item)=>{
+            if(item.ability.name){
+              text+=`${item.ability.name}<br>`;
+            }
+          }) 
+
+          data.moves.map((item)=>{
+            if(item.move.name){
+              moves+=`${item.move.name}<br>`;
+            }
+          }) 
+          setAbilities({
+            abilities:text,
+            moves
+          });
+        }
 
       }
     }
@@ -94,7 +117,7 @@ function Pokemon(props) {
           pokemon_form && pokemon_form.data && pokemon_form.data.flavor_text_entries && 
           pokemon_form.data.flavor_text_entries.map((item)=>{
             if(item.language.name === "en"){
-              text+=`<li key=${item}>${item.version.name}: ${item.flavor_text}<br></li>`;
+              text+=`<h4 key=${item}>${capitalizeFirstLetter(item.version.name)}:</h4> ${item.flavor_text}<br>`;
             }
           }) 
 
@@ -152,7 +175,12 @@ function Pokemon(props) {
     function renderFullData(){
       const {pokemon_data, pokemon_form} = props;
       return <div className={"cardWrapper"}>
-        {pokemon_data && pokemon_data.data && pokemon_form.data &&<CardInfo text={expandedText} name={pokemon_form.data.name} url={pokemon_data.data.sprites.front_default}/>}
+        {pokemon_data && pokemon_data.data && pokemon_form.data &&
+        <CardInfo 
+          text={expandedText} 
+          name={pokemon_form.data.name} 
+          url={pokemon_data.data.sprites.front_default}
+          abilities={abilities}/>}
       </div>
     }
     

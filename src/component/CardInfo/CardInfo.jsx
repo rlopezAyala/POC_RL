@@ -34,6 +34,7 @@ const useStyles = makeStyles(styles);
 
 CardInfo.propTypes = {
     text: PropTypes.string,
+    abilities: PropTypes.string,
     name: PropTypes.string,
     url: PropTypes.string,
   };
@@ -61,8 +62,9 @@ export default function CardInfo(props) {
             </CardAvatar>
             <CardBody profile>
               <h4 className={classes.cardTitle}>Abilities</h4>
-              <p className={classes.description} dangerouslySetInnerHTML={{ __html: props.text }}/>
-              <h4 className={classes.cardTitle}>Color</h4>
+              <p className={classes.description} dangerouslySetInnerHTML={{ __html: props.abilities.abilities }}/>
+              <h4 className={classes.cardTitle}>Moves</h4>
+              <p className={classes.description} dangerouslySetInnerHTML={{ __html: props.abilities.moves }}/>
             </CardBody>
           </Card>
         </GridItem>
