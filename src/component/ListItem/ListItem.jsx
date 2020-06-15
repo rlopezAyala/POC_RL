@@ -1,52 +1,65 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
-import StarBorder from '@material-ui/icons/StarBorder';
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
   nested: {
     paddingLeft: theme.spacing(4),
+  },
+  itemActiveItem: {
+    color: '#4fc3f7',
+  },
+  item: {
+    paddingTop: 1,
+    paddingBottom: 1,
+    color: 'rgba(255, 255, 255, 0.7)',
+    '&:hover,&:focus': {
+        color: '#4fc3f7',
+     backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    },
+  },
+  itemCategory: {
+    backgroundColor: '#232f3e',
+    boxShadow: '0 -1px 0 #404854 inset',
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }));
 
 NestedList.propTypes = {
     name: PropTypes.string,
     url: PropTypes.string,
+    key: PropTypes.number,
+    setOpenInfo:PropTypes.func
 };
 export default function NestedList(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  const handleClick = () => {
+  function handleClick(e){
+    //e.target;
     setOpen(!open);
-  };
+    props.setOpenInfo(props.url);
+  }
 
+  const listItemStyle=classNames(
+      classes.item, 
+      classes.itemCategory, 
+     {[classes.itemActiveItem]:open}
+  )
+      
   return (<div>
-      <ListItem button onClick={handleClick}>
+      <ListItem 
+        className={listItemStyle}
+        button onClick={(e)=>handleClick(e)}>
         <ListItemText primary={props.name} />
         {open ? <ChevronLeft /> : <ChevronRight />}
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Starred" />
-          </ListItem>
-        </List>
-      </Collapse></div>
+      </div>
   );
 }

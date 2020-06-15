@@ -8,6 +8,22 @@ function getPokemonCardsAsync() {
     });
 }
 
+function getPokemonDataAsync(hostUrl) {
+
+    return fetch(hostUrl).then(response => {
+      return response;
+    });
+}
+
+function getPokemonFormInfo(hostUrl) {
+
+  return fetch(hostUrl).then(response => {
+    return response;
+  });
+}
+
 export default {
-    getPokemonCardsAsync
+    getPokemonCardsAsync,
+    getPokemonDataAsync,
+    getPokemonFormInfo
 };

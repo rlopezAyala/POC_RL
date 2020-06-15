@@ -1,0 +1,58 @@
+.listBorder {
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.wrapper{
+    flex-direction: row;
+    display: flex;
+    background-color: #eeeeee;
+}
+
+.imageStyle{
+    width: 75%;
+    position:fixed;
+}
+
+.root{
+    width: 25%;
+}
+
+.cardWrapper{
+    padding: 4rem;
+    width: 75%;
+}
+
+.expansionPanelStyle{
+    padding-left: 14%;
+    width: 65%;
+    text-align: justify;
+}
+
+    
+@media only screen and (max-width: 600px) {
+    .imageStyle {
+        width:100%;
+    }
+
+    .wrapper{
+        flex-direction: column;
+        display: flex;
+    }
+
+    .cardWrapper{
+        padding: 0rem;
+        margin: 0px;
+        width: 100%;
+    }
+
+    .root {
+        width: 100%;
+    }
+    
+    .expansionPanelStyle{
+        padding-left: 0%;
+        width: 100%;
+    }    
+}
